@@ -1,0 +1,51 @@
+# Private modules (not for public release)
+tools/
+
+# Virtual environment
+env/
+venv/
+.venv/
+ENV/
+
+# Sensitive config - API keys and credentials
+config/tai_khoan_api.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Data files
+du_lieu/**/*.csv
+du_lieu/**/*.json
+du_lieu/**/*.parquet
+du_lieu/**/*.db
+du_lieu/**/*.sqlite
+du_lieu/**/*.duckdb
+du_lieu/**/*.log
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
+.vs/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.*.local

@@ -1,0 +1,47 @@
+# =============================================================
+# Kairos-v2 — Python Dependencies
+# Python >= 3.10
+# Install: pip install -r requirements.txt
+# =============================================================
+
+# ----- Core Data Science -----
+numpy
+pandas
+polars
+pyarrow
+
+# ----- Trading & Finance -----
+ccxt
+ta
+
+# ----- Machine Learning -----
+scikit-learn
+joblib
+torch
+optuna
+
+
+# ----- Visualization -----
+matplotlib
+pyqtgraph
+
+# ----- GUI / Desktop -----
+PyQt6
+PyQt6-Charts
+
+# ----- HTTP / Networking -----
+requests
+websocket-client
+
+# ----- Data Warehouse -----
+duckdb     
+
+# ----- Config -----
+PyYAML
+
+# ----- Terminal / Logging -----
+rich
+
+# ----- Testing -----
+pytest
+
