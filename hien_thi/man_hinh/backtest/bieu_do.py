@@ -552,15 +552,19 @@ class DailyPnLBarChart(QWidget):
         painter.drawEllipse(points[-1], 3, 3)
 
     def draw_daily_bars(self, painter, margin, chart_top, chart_w, chart_h, zero_y):
-        """Vẽ cột lãi/lỗ mỗi ngày: XANH nếu ngày LÃI, ĐỎ nếu ngày LỖ (theo total_pnl), kèm số lệnh.
-
-        Màu = lãi/lỗ (đúng tiêu đề "LÃI LỖ HẰNG NGÀY"); phân tích theo chiều lệnh xem ở panel
-        LONG VS SHORT. Trước đây tô theo chiều lệnh (long=xanh/short=đỏ) nên ngày LONG-lỗ vẫn ra xanh.
+        """Vẽ cột lãi/lỗ mỗi ngày theo logic:
+        - Vị thế LONG: Đâm lên trên đường Zero
+        - Vị thế SHORT: Đâm xuống dưới đường Zero
+        - Kết quả LÃI: Màu xanh lá (COLOR_WIN)
+        - Kết quả LỖ: Màu đỏ (COLOR_LOSS)
         """
         if not self.chart_data:
             return
 
-        max_val = max(abs(d["total_pnl"]) for d in self.chart_data) or 1
+        # Tính toán max_val dựa trên giá trị trị tuyệt đối lớn nhất của long_pnl hoặc short_pnl
+        max_val = max(
+            max(abs(d["long_pnl"]), abs(d["short_pnl"])) for d in self.chart_data
+        ) or 1
         slot_w = chart_w / len(self.chart_data)
         bar_gap = 6
         bar_w = max(3, slot_w - bar_gap)
@@ -571,15 +575,31 @@ class DailyPnLBarChart(QWidget):
         for i, d in enumerate(self.chart_data):
             x = margin + i * slot_w + bar_gap / 2
 
-            pnl = d["total_pnl"]
-            la_lai = pnl >= 0
-            height = (abs(pnl) / (max_val * 1.2)) * (chart_h / 2)
+            # 1. Vẽ phần LONG (Luôn đâm lên trên đường Zero)
+            long_pnl = d["long_pnl"]
+            if abs(long_pnl) > 0.001:
+                la_lai = long_pnl >= 0
+                height = (abs(long_pnl) / (max_val * 1.2)) * (chart_h / 2)
+                # Đâm lên: y = zero_y - height
+                rect = QRectF(x, zero_y - height, bar_w, height)
+                # Lãi màu xanh, lỗ màu đỏ
+                color = QColor(COLOR_WIN if la_lai else COLOR_LOSS)
+                color.setAlpha(180)
+                painter.fillRect(rect, color)
 
+            # 2. Vẽ phần SHORT (Luôn đâm xuống dưới đường Zero)
+            short_pnl = d["short_pnl"]
+            if abs(short_pnl) > 0.001:
+                la_lai = short_pnl >= 0
+                height = (abs(short_pnl) / (max_val * 1.2)) * (chart_h / 2)
+                # Đâm xuống: y = zero_y
+                rect = QRectF(x, zero_y, bar_w, height)
+                # Lãi màu xanh, lỗ màu đỏ
+                color = QColor(COLOR_WIN if la_lai else COLOR_LOSS)
+                color.setAlpha(180)
+                painter.fillRect(rect, color)
 
-            rect = QRectF(x, zero_y - height if la_lai else zero_y, bar_w, height)
-            painter.fillRect(rect, QColor(COLOR_WIN if la_lai else COLOR_LOSS))
-
-
+            # 3. Vẽ số lượng lệnh dưới cột
             painter.setPen(QColor(TEXT_SUB))
             painter.setFont(QFont("Segoe UI", 7))
             painter.drawText(
