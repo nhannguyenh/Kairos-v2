@@ -65,7 +65,7 @@ See [Installation & Setup](#11-requirements--installation) for more details.
 
 ### Analytics Dashboard Preview
 
-<img width="1920" height="1080" alt="576968808-4883c4f4-e1ca-4e34-b806-220ae38faccc" src="https://github.com/user-attachments/assets/b19055d4-6000-4410-9c7f-6db71cbcead1" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/8928cf66-ca8c-403d-815e-e6e05b2b03df" />
 
 -----
 

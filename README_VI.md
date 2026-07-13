@@ -65,7 +65,7 @@ Xem [Hướng dẫn cài đặt](#yêu-cầu--hướng-dẫn-cài-đặt) để 
 
 ### Minh họa Analytics Dashboard
 
-<img width="1920" height="1080" alt="576968808-4883c4f4-e1ca-4e34-b806-220ae38faccc" src="https://github.com/user-attachments/assets/b19055d4-6000-4410-9c7f-6db71cbcead1" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/e272d0e8-2ff5-4fc9-baac-6148ef3f511b" />
 
 -----
 
